@@ -46,6 +46,25 @@ native "/", div
     push rax
     jmp next
 
+native "%", mod
+    pop rcx
+    pop rax
+    cqo
+    idiv rcx
+    push rdx
+    jmp next
+
+; ----------------
+; logic operations
+; ----------------
+native "not", not
+    pop rax
+    test rax, rax
+    setz al
+    movzx rax, al
+    push rax
+    jmp next
+
 ; --------------------
 ; exit from colon word
 ; --------------------
