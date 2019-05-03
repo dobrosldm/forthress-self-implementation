@@ -65,6 +65,24 @@ native "not", not
     push rax
     jmp next
 
+native "=", equals
+    pop rax
+    pop rdx
+    cmp rax, rdx
+    sete al
+    movzx rax, al
+    push rax
+    jmp next
+
+native "<", lt
+    pop rax
+    pop rdx
+    cmp rax, rdx
+    setm al
+    movzx rax, al
+    push rax
+    jmp next
+
 ; --------------------
 ; exit from colon word
 ; --------------------
