@@ -6,6 +6,8 @@
 ; divides definition into data section and
 ; code section, where pointer to asm-code stored
 ;-----------------------------------------------
+
+; for words supplied with flags
 %macro native 3
     section .data
     wh_ %+ %2 : dq _lw
@@ -19,6 +21,23 @@
     i_ %+ %2:
 %endmacro
 
+; overloaded version with [0] as flags
 %macro native 2
 native %1, %2, 0
+%endmacro
+
+;----------------------------------------
+; macroses for return stack manipulations
+;----------------------------------------
+
+; push into return stack
+%macro rpush 1
+    sub rstack, 8
+    mov qword [rstack], %1
+%endmacro
+
+; pop from return stack
+%macro rpop 1
+    mov %1, qword [rstack]
+    add rstack, 8
 %endmacro

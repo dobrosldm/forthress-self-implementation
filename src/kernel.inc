@@ -1,8 +1,8 @@
 ; This file stores the core defined words.
 
-;--------------------
-; stack-manipulations
-;--------------------
+;-------------------------------------
+; for manipulations with regular stack
+;-------------------------------------
 native "drop", drop
     add rsp, 8
     jmp next
