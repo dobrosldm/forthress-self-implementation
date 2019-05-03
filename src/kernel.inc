@@ -118,6 +118,16 @@ native "or", or
     or [rsp], rax
     jmp next
 
+; -----------------------------------------------------------
+; implementation of any colon-word
+; (it's role to save old [pc] value and put a new value in it)
+; ------------------------------------------------------------
+native "docol", docol
+    rpush pc
+    add w, 8
+    mov pc, w
+    jmp next
+
 ; --------------------
 ; exit from colon word
 ; --------------------
