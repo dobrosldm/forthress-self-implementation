@@ -118,6 +118,27 @@ native "or", or
     or [rsp], rax
     jmp next
 
+;------------------------------------
+; for manipulations with return stack
+;------------------------------------
+
+; moves element from regular to return stack
+native ">r", to_r
+    pop rax
+    rpush rax
+    jmp next
+
+; moves element from return to regular stack
+native "r>", from_r
+    rpop rax
+    push rax
+    jmp next
+
+; 'r>' logic but without removing from return stack
+native "r@", r_fetch
+    push qword [rstack]
+    jmp next
+
 ;-------------------------------------------
 ; implementation of any colon-word
 ;
