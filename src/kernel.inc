@@ -105,6 +105,19 @@ native "lor", lor
     push rax
     jmp next
 
+; ------------------
+; bitwise operations
+; ------------------
+native "and", and
+    pop rax
+    and [rsp], rax
+    jmp next
+
+native "or", or
+    pop rax
+    or [rsp], rax
+    jmp next
+
 ; --------------------
 ; exit from colon word
 ; --------------------
