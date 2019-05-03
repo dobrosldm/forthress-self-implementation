@@ -75,11 +75,33 @@ native "=", equals
     jmp next
 
 native "<", lt
+    pop rdx
+    pop rax
+    cmp rax, rdx
+    setl al
+    movzx rax, al
+    push rax
+    jmp next
+
+native "land", land
     pop rax
     pop rdx
-    cmp rax, rdx
-    setm al
-    movzx rax, al
+    test rax, rax
+    jz .no
+    push rdx
+    jmp next
+.no:
+    push rax
+    jmp next
+
+native "lor", lor
+    pop rax
+    pop rdx
+    test rax, rax
+    jnz .yes
+    push rdx
+    jmp next
+.yes:
     push rax
     jmp next
 
