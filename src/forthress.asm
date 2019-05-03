@@ -11,7 +11,8 @@ global _start
 ;-------------------------------------------------------------
 section .text
 
-; here words would be defined
+;  new defined words are stored here
+%include "kernel.inc"
 
 ;-------------------------------------------------------------
 section .bss
