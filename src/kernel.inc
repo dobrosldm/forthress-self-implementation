@@ -143,7 +143,7 @@ native "r@", r_fetch
 ; when just putting values on stack we want 
 ; Forthress to avoid executing them as words
 ;
-; 'lit', 'branch' and '0branch' does this job
+; 'lit' does this job
 ;--------------------------------------------
 native "lit", lit
     push qword [pc]
@@ -163,6 +163,47 @@ native "0branch", branch0
 .skip:
     add pc, 8
     jmp next
+
+;--------------------
+; working with memory
+;--------------------
+
+; fetch value from memory
+native "@", fetch
+    pop rax
+    push qword[rax]
+    jmp next
+
+; store value by address
+native "!", write
+    pop rax
+    pop rdx
+    mov [rax], rdx
+    jmp next
+
+; store one byte by address
+native "c!", write_char
+    pop rax
+    pop rdx
+    mov [rax], dl
+    jmp next
+
+; read one byte starting at addr
+native "c@", fetch_char
+    pop rax
+    movzx rax, byte [rax]
+    push rax
+    jmp next
+
+; execute word with it's execution token
+native "execute", execute
+    pop rax
+    mov w, rax
+    jmp [rax]
+
+; push dp-adress to stack
+; it points to the first empty cell in user's data section
+const "forth-dp", dp
 
 ;-------------------------------------------
 ; implementation of any colon-word

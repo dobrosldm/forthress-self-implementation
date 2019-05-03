@@ -16,14 +16,16 @@
     db %3
     
     %define _lw wh_%+ %2 
-    xt_ %+ %2 :  dq i_ %+ %2 
+    xt_ %+ %2 :  
+        dq i_ %+ %2 
+        
     section .text
     i_ %+ %2:
 %endmacro
 
 ; overloaded version with [0] as flags
 %macro native 2
-native %1, %2, 0
+    native %1, %2, 0
 %endmacro
 
 ;----------------------------------------
@@ -46,11 +48,19 @@ native %1, %2, 0
 ; macroses for transition (if-else) operations
 ;---------------------------------------------
 %macro branch 1 
-dq xt_branch
-dq %1
+    dq xt_branch
+    dq %1
 %endmacro
 
 %macro branch0 1 
-dq xt_branch0
-dq %1 
+    dq xt_branch0
+    dq %1 
+%endmacro
+
+;--------------------------------------------
+; macros to return free user's memory pointer
+;--------------------------------------------
+%macro const 2
+    colon %1, %2
+        dq xt_lit,  %2, xt_exit
 %endmacro

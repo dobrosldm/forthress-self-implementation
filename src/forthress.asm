@@ -24,7 +24,7 @@ section .bss
 user_mem:
 	resq 65536
 ; return stack end
-resq 1023              
+    resq 1023              
 ; return stack start
 rstack_start:
 	resq 1 
@@ -49,7 +49,7 @@ section .text
 _start: 
     mov rstack, rstack_start
     mov [stack_start], rsp
-    ;  setting up initial stack state
+    ; setting up initial stack state
     mov pc, forth_init
 
 ; Forthress inner-interpreter
