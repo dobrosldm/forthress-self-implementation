@@ -11,7 +11,7 @@ global _start
 ;-------------------------------------------------------------
 section .text
 
-;  new defined words are stored here
+;  new core defined words are stored here
 %include "kernel.inc"
 
 ;-------------------------------------------------------------

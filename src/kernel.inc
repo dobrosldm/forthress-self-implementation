@@ -1,4 +1,4 @@
-; This file stores the core predefined words.
+; This file stores the core defined words.
 
 ; --------------------
 ; exit from colon word
@@ -23,4 +23,17 @@ native "swap", swap
     pop rdx
     push rax
     push rdx
+    jmp next
+
+; ---------------------
+; arithmetic operations
+; ---------------------
+native "+", plus
+    pop rax
+    add [rsp], rax
+    jmp next
+
+native "-", minus
+    pop rax
+    sub [rsp], rax
     jmp next
