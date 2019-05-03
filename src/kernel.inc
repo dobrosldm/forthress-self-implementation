@@ -1,12 +1,5 @@
 ; This file stores the core defined words.
 
-; --------------------
-; exit from colon word
-; --------------------
-native "exit", exit
-    rpop pc
-    jmp next
-
 ; -------------------
 ; stack-manipulations
 ; -------------------
@@ -36,4 +29,26 @@ native "+", plus
 native "-", minus
     pop rax
     sub [rsp], rax
+    jmp next
+
+native "*", mul
+    pop rax
+    pop rdx
+    imul rdx
+    push rax
+    jmp next
+
+native "/", div
+    pop rcx
+    pop rax
+    cqo
+    idiv rcx
+    push rax
+    jmp next
+
+; --------------------
+; exit from colon word
+; --------------------
+native "exit", exit
+    rpop pc
     jmp next
