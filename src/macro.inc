@@ -1,5 +1,11 @@
 %define _lw 0
 
+;-----------------------------------------------
+; macroses for easier dictionary creation
+;
+; divides definition into data section and
+; code section, where pointer to asm-code stored
+;-----------------------------------------------
 %macro native 3
     section .data
     wh_ %+ %2 : dq _lw

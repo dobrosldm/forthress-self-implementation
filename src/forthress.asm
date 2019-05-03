@@ -11,7 +11,7 @@ global _start
 ;-------------------------------------------------------------
 section .text
 
-;  new core defined words are stored here
+; new core defined words are stored here
 %include "kernel.inc"
 
 ;-------------------------------------------------------------
@@ -48,4 +48,3 @@ next:
     add pc, 8
     mov w, [w]
     jmp [w]
-

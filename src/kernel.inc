@@ -1,8 +1,8 @@
 ; This file stores the core defined words.
 
-; -------------------
+;--------------------
 ; stack-manipulations
-; -------------------
+;--------------------
 native "drop", drop
     add rsp, 8
     jmp next
@@ -18,9 +18,9 @@ native "swap", swap
     push rdx
     jmp next
 
-; ---------------------
+;----------------------
 ; arithmetic operations
-; ---------------------
+;----------------------
 native "+", plus
     pop rax
     add [rsp], rax
@@ -54,9 +54,9 @@ native "%", mod
     push rdx
     jmp next
 
-; ----------------
+;-----------------
 ; logic operations
-; ----------------
+;-----------------
 native "not", not
     pop rax
     test rax, rax
@@ -105,9 +105,9 @@ native "lor", lor
     push rax
     jmp next
 
-; ------------------
+;-------------------
 ; bitwise operations
-; ------------------
+;-------------------
 native "and", and
     pop rax
     and [rsp], rax
@@ -118,19 +118,23 @@ native "or", or
     or [rsp], rax
     jmp next
 
-; -----------------------------------------------------------
+;-------------------------------------------
 ; implementation of any colon-word
-; (it's role to save old [pc] value and put a new value in it)
-; ------------------------------------------------------------
+;
+; it's role to save old [pc] value
+; to return stack and put a new value in it
+;-------------------------------------------
 native "docol", docol
     rpush pc
     add w, 8
     mov pc, w
     jmp next
 
-; --------------------
-; exit from colon word
-; --------------------
+;---------------------------------------------------
+; exit from colon word (any colon-word ends with it)
+;
+; it returns [pc] to the state before executed word
+;---------------------------------------------------
 native "exit", exit
     rpop pc
     jmp next
