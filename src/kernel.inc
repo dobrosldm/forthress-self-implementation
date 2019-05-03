@@ -139,6 +139,31 @@ native "r@", r_fetch
     push qword [rstack]
     jmp next
 
+;--------------------------------------------
+; when just putting values on stack we want 
+; Forthress to avoid executing them as words
+;
+; 'lit', 'branch' and '0branch' does this job
+;--------------------------------------------
+native "lit", lit
+    push qword [pc]
+    add pc, 8
+    jmp next
+
+native "branch", branch
+    mov pc, [pc]
+    jmp next
+
+native "0branch", branch0
+    pop rax
+    test rax, rax
+    jnz .skip
+    mov pc, [pc]
+    jmp next
+.skip:
+    add pc, 8
+    jmp next
+
 ;-------------------------------------------
 ; implementation of any colon-word
 ;

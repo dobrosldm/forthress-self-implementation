@@ -23,9 +23,9 @@ section .bss
 ; global data for user
 user_mem:
 	resq 65536
-; returns stack end
+; return stack end
 resq 1023              
-; returns stack start
+; return stack start
 rstack_start:
 	resq 1 
 

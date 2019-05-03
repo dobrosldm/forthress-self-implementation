@@ -41,3 +41,16 @@ native %1, %2, 0
     mov %1, qword [rstack]
     add rstack, 8
 %endmacro
+
+;---------------------------------------------
+; macroses for transition (if-else) operations
+;---------------------------------------------
+%macro branch 1 
+dq xt_branch
+dq %1
+%endmacro
+
+%macro branch0 1 
+dq xt_branch0
+dq %1 
+%endmacro
