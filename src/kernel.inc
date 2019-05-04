@@ -217,6 +217,29 @@ native "docol", docol
     mov pc, w
     jmp next
 
+;--------------------------------------------------------------
+; standart system call using these registers to store arguments
+;
+; ( call_num a1 a2 a3 a4 a5 a6 -- new_rax new_rdx )
+;--------------------------------------------------------------
+native "syscall", syscall
+    pop r9
+    pop r8
+    pop r10
+    pop rdx
+    pop rsi
+    pop rdi
+    pop rax
+    syscall
+    push rax
+    push rdx
+    jmp next
+
+; simply pushes rsp to access it
+native "sp", sp
+    push rsp
+    jmp next
+
 ;---------------------------------------------------
 ; exit from colon word (any colon-word ends with it)
 ;
