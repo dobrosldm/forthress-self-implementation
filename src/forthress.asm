@@ -2,6 +2,7 @@
 
 global _start
 
+; macroses file
 %include "macro.inc"
 
 ; command counter
@@ -16,6 +17,8 @@ section .text
 
 ; new core defined words are stored here
 %include "kernel.inc"
+; utility words are stored here
+%include "utility-words.inc"
 
 ;-------------------------------------------------------------
 section .bss
@@ -52,7 +55,7 @@ _start:
     ; setting up initial stack state
     mov pc, forth_init
 
-; Forthress inner-interpreter
+; Forthress inner interpreter
 next:                  
     mov w, pc
     add pc, 8

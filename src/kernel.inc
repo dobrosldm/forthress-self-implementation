@@ -240,6 +240,14 @@ native "sp", sp
     push rsp
     jmp next
 
+native "forth-stack-base", forth_stack_base
+    push qword[stack_start]
+    jmp next
+
+native "forth-stack-restore", forth_stack_restore
+    mov rsp, [stack_start]
+    jmp next
+
 ;---------------------------------------------------
 ; exit from colon word (any colon-word ends with it)
 ;

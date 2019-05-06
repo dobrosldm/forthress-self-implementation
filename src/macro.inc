@@ -57,6 +57,28 @@
     dq %1 
 %endmacro
 
+;---------------------------------------------
+; macroses to define one words through another
+;---------------------------------------------
+; default colon definition
+%macro colon 3
+section .data 
+    wh_ %+ %2 :
+        dq _lw
+    %define _lw wh_ %+ %2 
+    db 0 
+    str_ %+ %2:
+    db %1, 0
+    db %3
+    xt_ %+ %2 :
+        dq i_docol
+%endmacro
+
+; overloaded version
+%macro colon 2
+    colon %1, %2, 0
+%endmacro
+
 ;--------------------------------------------
 ; macros to return free user's memory pointer
 ;--------------------------------------------
