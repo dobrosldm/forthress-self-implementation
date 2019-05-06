@@ -60,6 +60,7 @@
 ;---------------------------------------------
 ; macroses to define one words through another
 ;---------------------------------------------
+
 ; default colon definition
 %macro colon 3
 section .data 
