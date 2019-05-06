@@ -232,3 +232,35 @@ colon "string-parse-number", string_parse_number
     dq xt_drop, xt_string_parse_unsigned_number, xt_exit 
   .error:
     dq xt_drop, xt_lit, 0, xt_exit
+
+;-----------------
+; additional tools
+;-----------------
+
+; adds x to the word being defined
+; ( x -- ) 
+colon ",", comma
+  dq xt_here, xt_fetch, xt_write
+  dq xt_here, xt_fetch, xt_lit, 8, xt_plus
+  dq xt_here, xt_write, xt_exit
+
+; adds a single byte to the word being defined
+; ( c -- )
+colon "c,", char_comma
+  dq xt_here, xt_fetch, xt_write_char
+  dq xt_here, xt_fetch, xt_inc
+  dq xt_here, xt_write, xt_exit
+
+; reads word from current input stream and start defining it
+colon ":", colon
+  .restart:
+    dq xt_fd, xt_fetch, xt_lit, word_buf, xt_file_read_word
+    branch0 .restart
+    dq xt_lit, 0, xt_lit, word_buf, xt_forth_create
+    dq xt_lit, STATE_COMPILE, xt_state, xt_write
+    dq xt_lit, i_docol, xt_comma, xt_exit
+
+; ends the current word definition
+colon ";", semicolon, 1
+  dq xt_lit, STATE_INTERPRET, xt_state, xt_write
+  dq xt_lit, xt_exit, xt_comma, xt_exit
