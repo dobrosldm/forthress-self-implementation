@@ -19,6 +19,8 @@ section .text
 %include "kernel.inc"
 ; utility words are stored here
 %include "utility-words.inc"
+; outer interpreter
+%include "outer-interpreter.inc"
 
 ;-------------------------------------------------------------
 section .bss
