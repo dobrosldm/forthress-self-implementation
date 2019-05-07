@@ -17,10 +17,10 @@ section .text
 
 ; new core defined words are stored here
 %include "kernel.inc"
-; utility words are stored here
-%include "utility-words.inc"
 ; outer interpreter
 %include "outer-interpreter.inc"
+; utility words are stored here
+%include "utility-words.inc"
 
 ;-------------------------------------------------------------
 section .bss
