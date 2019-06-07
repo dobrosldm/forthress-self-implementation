@@ -167,3 +167,58 @@ colon "'", forth_tick, 1
 ; default implementation of a word that will be executed on SIGSEGV
 colon "trap", trap
   dq xt_lit, wh_trap + 9, xt_print_string, xt_print_cr, xt_exit
+
+;-------------------------------
+; .s (show stack) implementation
+;-------------------------------
+
+; prints char to stdout
+; ( char - )
+colon "print-char", print_char
+  dq xt_lit, 1, xt_swap, xt_file_write_char, xt_exit
+
+; converts digit to char
+; ( dig -- char )
+colon "digit-to-char", digit_to_char
+  dq xt_lit, 0x30, xt_plus, xt_exit
+
+; prints unsigned integer to stdout
+; ( uint -- )
+colon "print-uint", print_uint
+    dq xt_to_r
+    dq xt_sp
+    dq xt_from_r, xt_swap
+    dq xt_to_r, xt_to_r
+  .loop:
+    dq xt_r_fetch
+    dq xt_lit, 10, xt_mod
+    dq xt_from_r
+    dq xt_lit, 10, xt_div
+    dq xt_dup
+    branch0 .print
+    dq xt_to_r
+    branch .loop
+  .print:
+    dq xt_drop
+  .print_loop:
+    dq xt_sp, xt_r_fetch, xt_lt
+    branch0 .exit
+    dq xt_digit_to_char, xt_print_char
+    branch .print_loop
+  .exit:
+    dq xt_from_r, xt_drop, xt_exit
+
+; prints stack without discarding elements from it
+colon ".s", show_stack
+    dq xt_sp
+    dq xt_to_r
+  .loop:
+    dq xt_r_fetch, xt_forth_stack_base, xt_lt
+    branch0 .exit
+    dq xt_r_fetch, xt_fetch, xt_print_uint, xt_print_cr
+    dq xt_from_r
+    dq xt_lit, 8, xt_plus
+    dq xt_to_r
+    branch .loop
+  .exit:
+    dq xt_from_r, xt_drop, xt_exit
