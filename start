@@ -1,1 +1,1 @@
-./bin/forthress
+echo 'Forthress is glad to see you, wanderer!' && cat stage_3.frt - | ./bin/forthress
