@@ -11,3 +11,19 @@
 
 ( "here" is like a label - we use it when we need to jump from "here 0" places )
 ( it helps to implement branching )
+
+: if 
+	' 0branch , 
+	here 0  , 
+; IMMEDIATE
+
+: then 
+	here swap ! 
+; IMMEDIATE
+
+: else 
+	' branch , 
+	here 0 , 
+	swap 
+	here swap !  
+; IMMEDIATE
